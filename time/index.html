@@ -32,8 +32,7 @@
             <p class="text-white">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Perferendis a rem ab maxime maiores laborum ex, nostrum aliquam
-              nulla explicabo, culpa expedita quibusdam unde? Delectus
-              aspernatur eius necessitatibus amet expedita animi suscipit sit
+              nulla explicabbus amet expedita animi suscipit sit
               illum architecto omnis obcaecati ea, iure corrupti beatae non,
               explicabo exercitationem error culpa dolorem? Molestiae, delectus
               autem.
@@ -77,12 +76,12 @@
             <!-- end bot row -->
             <div class="row">
               <div class="col">
-                <label for="sec-in" class="form-label text-white"
-                  >Seconds</label
+                <label for="hr-in" class="form-label text-white"
+                  >Hours</label
                 >
                 <input
-                  type="number"
-                  id="sec-in"
+                  type="number" min="0"
+                  id="hr-in"
                   class="form-control"
                   placeholder="0"
                   value="0"
@@ -93,7 +92,7 @@
                   >Minutes</label
                 >
                 <input
-                  type="number"
+                  type="number" min="0"
                   id="min-in"
                   class="form-control"
                   placeholder="0"
@@ -101,10 +100,10 @@
                 />
               </div>
               <div class="col">
-                <label for="hr-in" class="form-label text-white">Hours</label>
+                <label for="sec-in" class="form-label text-white">Seconds</label>
                 <input
-                  type="number"
-                  id="hr-in"
+                  type="number" min="0"
+                  id="sec-in"
                   class="form-control"
                   placeholder="0"
                   value="0"

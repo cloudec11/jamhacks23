@@ -9,58 +9,38 @@ document.getElementById("stop").addEventListener("click", stopTime); //stop butt
 document.getElementById("start").addEventListener("click", startTime); //stop button
 document.getElementById("reset").addEventListener("click", resetTime); //reset
 document.getElementById("sub-time").addEventListener("click", setTime); //setting the time
+let totalSeconds = 0;
 
+//Convert to total seconds
 
-let curr = [
-    ts.innerText,
-    tm.innerText,
-    th.innerText
-];
-let original  = [
-    parseInt(ts.innerText),
-    tm.innerText,
-    th.innerText
-];
+let original = ["w", "r", "s"];
+
 var intervalID;
-
-let started = false;
-
-
+original[0] = ts.innerHTML;
+original[1] = tm.innerHTML;
+original[2] = th.innerHTML;
 function stopTime(){
     //stop time
     clearInterval(intervalID);
-    started = false;
 }
 
 function startTime(){
     //start time
-    if(!started){
+
+    intervalID = setInterval(function(){
+        totalSeconds = parseInt(ts.innerText) + (parseInt(tm.innerText) * 60) + (parseInt(th.innerText) * 3600);
+        updateTime();
+    }, 1000);
+
         
-        if(parseInt(ts.innerHTML)>0){
-
-            ts.innerHTML = curr[0]--;
-        }
-
-        intervalID = setInterval(function(){
-            ts.innerHTML = curr[0]--;
-            if(parseInt(ts.innerText)==0){
-                //decrement min on next
-                tm.innerHTML = curr[1]--;
-            }
-            if(parseInt(tm.innerText)==0){
-                //decrement hr
-                th.innerHTML = curr[2]--;
-            }
-            
-        }, 1000);
-        started = true;
-    }
+    
 }
 
 function resetTime(){
     ts.innerHTML = original[0];
-    ts.innerHTML = original[1];
-    ts.innerHTML = original[2];
+    tm.innerHTML = original[1];
+    th.innerHTML = original[2];
+
     
 }
 
@@ -68,4 +48,22 @@ function setTime(){
     ts.innerHTML = secin.value;
     tm.innerHTML = minin.value;
     th.innerHTML = hrin.value;
+    totalSeconds = parseInt(ts.innerText) + (parseInt(tm.innerText) * 60) + (parseInt(th.innerText) * 3600);
+    original[0] = ts.innerHTML;
+    original[1] = tm.innerHTML;
+    original[2] = th.innerHTML;
+
+
+}
+
+function updateTime(){
+    console.log(totalSeconds+"nig");
+    th.innerHTML = (totalSeconds - (totalSeconds % 3600)) / 3600
+    console.log(th.innerHTML);
+    totalSeconds-=parseInt(th.innerHTML)*3600;
+    console.log(tm.innerHTML);
+    tm.innerHTML = (totalSeconds - (totalSeconds % 60)) / 60
+    totalSeconds-=parseInt(tm.innerHTML)*60
+    console.log(ts.innerHTML);
+    ts.innerHTML = totalSeconds - (parseInt(tm.innerHTML * 60))
 }
