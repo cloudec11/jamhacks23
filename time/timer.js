@@ -42,7 +42,7 @@ function startTime(){
         totalSeconds--;
         console.log(originalSecs);
         updateTime();
-        if(totalSeconds == 0){
+        if(totalSeconds == -1){
             alert("Break time!")
             totalSeconds = 600
         }
