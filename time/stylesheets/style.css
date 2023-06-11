@@ -1,5 +1,6 @@
 body{
     background-color: black;
+    overflow: hidden;
 }
 
 img:hover{
@@ -8,6 +9,12 @@ img:hover{
 #timer{
     margin-left: 20%;
     margin-right: 20%;
+}
+#bg{
+    position: absolute;
+    z-index: -1;
+    width: 100vw;
+    opacity: 60%;
 }
 .checklist-item {
     display: flex;
