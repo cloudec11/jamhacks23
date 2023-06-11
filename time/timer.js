@@ -9,16 +9,25 @@ document.getElementById("stop").addEventListener("click", stopTime); //stop butt
 document.getElementById("start").addEventListener("click", startTime); //stop button
 document.getElementById("reset").addEventListener("click", resetTime); //reset
 document.getElementById("sub-time").addEventListener("click", setTime); //setting the time
-let totalSeconds = 0;
 
+
+
+
+
+let totalSeconds = 0;
+let originalSecs = 0;
 //Convert to total seconds
 
-let original = ["w", "r", "s"];
+let original = [
+    parseInt(secin.value),
+    parseInt(minin.value),
+    parseInt(hrin.value)
+];
+
+
 
 var intervalID;
-original[0] = ts.innerHTML;
-original[1] = tm.innerHTML;
-original[2] = th.innerHTML;
+
 function stopTime(){
     //stop time
     clearInterval(intervalID);
@@ -27,43 +36,51 @@ function stopTime(){
 function startTime(){
     //start time
 
-    intervalID = setInterval(function(){
-        totalSeconds = parseInt(ts.innerText) + (parseInt(tm.innerText) * 60) + (parseInt(th.innerText) * 3600);
-        updateTime();
-    }, 1000);
+    totalSeconds=originalSecs;
 
-        
-    
+    intervalID = setInterval(function(){
+        totalSeconds--;
+        console.log(originalSecs);
+        updateTime();
+        if(totalSeconds == 0){
+            alert("Break time!")
+            totalSeconds = 600
+        }
+    }, 1000);
 }
 
 function resetTime(){
-    ts.innerHTML = original[0];
-    tm.innerHTML = original[1];
-    th.innerHTML = original[2];
-
-    
+    totalSeconds = originalSecs;
+    stopTime();
+    updateTime();
 }
 
 function setTime(){
     ts.innerHTML = secin.value;
     tm.innerHTML = minin.value;
     th.innerHTML = hrin.value;
-    totalSeconds = parseInt(ts.innerText) + (parseInt(tm.innerText) * 60) + (parseInt(th.innerText) * 3600);
-    original[0] = ts.innerHTML;
-    original[1] = tm.innerHTML;
-    original[2] = th.innerHTML;
+    
+    original[0] = secin.value;
+    original[1] = minin.value;
+    original[2] = hrin.value;
+
+    totalSeconds = parseInt(original[0]) + parseInt(original[1]*60) + parseInt(original[2]*3600);
+    originalSecs = totalSeconds;
+    console.log(totalSeconds+" updated new total ");
 
 
 }
 
 function updateTime(){
-    console.log(totalSeconds+"nig");
-    th.innerHTML = (totalSeconds - (totalSeconds % 3600)) / 3600
-    console.log(th.innerHTML);
-    totalSeconds-=parseInt(th.innerHTML)*3600;
-    console.log(tm.innerHTML);
-    tm.innerHTML = (totalSeconds - (totalSeconds % 60)) / 60
-    totalSeconds-=parseInt(tm.innerHTML)*60
-    console.log(ts.innerHTML);
-    ts.innerHTML = totalSeconds - (parseInt(tm.innerHTML * 60))
+    
+    let totalSecondsTMP = totalSeconds
+
+    th.innerHTML = (totalSecondsTMP - (totalSecondsTMP % 3600)) / 3600;
+    console.log(th.innerText + " hours");
+    totalSecondsTMP-=parseInt(th.innerText)*3600;
+    tm.innerHTML = (totalSecondsTMP - (totalSecondsTMP % 60)) / 60;
+    console.log(tm.innerHTML + " mins");
+    totalSecondsTMP-=(parseInt(tm.innerHTML)*60);
+    ts.innerHTML = totalSecondsTMP;
+    console.log(ts.innerHTML + " secs");
 }
